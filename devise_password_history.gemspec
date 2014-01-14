@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["ryan@rpheath.com"]
   gem.description   = %q{Maintains password history and ensures old passwords aren't reused}
   gem.summary       = %q{Password history support for devise}
-  gem.homepage      = ""
+  gem.homepage      = "http://github.com/rpheath/devise_password_history"
 
   gem.add_dependency("devise", ["~> 2.2.0"])
 
