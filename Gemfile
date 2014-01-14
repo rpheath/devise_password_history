@@ -1,4 +1,10 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in devise_password_history.gemspec
 gemspec
+
+group :test do
+  gem "rake"
+  gem "turn"
+  gem "mocha"
+  gem "minitest"
+end
