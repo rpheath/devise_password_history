@@ -20,6 +20,8 @@ module DevisePasswordHistory
           "  config.password_history_count = 8\n\n" +
           "  # Toggles behavior for Deny/Allow old passwords\n" +
           "  config.deny_old_passwords = true\n\n" +        
+          "  # Repeatedly forces a new password based on this age\n" +
+          "  # config.password_age = 90.days\n\n" +        
           "", :before => /end[\s|\n|]+\Z/
       end
 

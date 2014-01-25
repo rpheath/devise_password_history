@@ -6,7 +6,7 @@ module Devise
       extend ActiveSupport::Concern
 
       module ClassMethods
-        Devise::Models.config(self, :password_history_count, :deny_old_passwords)
+        Devise::Models.config(self, :password_history_count, :deny_old_passwords, :password_age)
       end
 
       included do
@@ -43,6 +43,32 @@ module Devise
         # otherwise, we're safe to let this
         # password go through
         false
+      end
+
+      def has_password_expired?
+        # make sure this feature is turned on
+        return false if self.class.password_age.nil?
+
+        # initializing to ensure expired_stamp
+        # exists in case conditions fail below
+        expired_stamp = Time.now
+
+        if self.old_passwords.present?          
+          # since we are tracking old passwords, we can get the 
+          # last time the password was changed
+          password_changed_at = self.old_passwords.order(:created_at).last.created_at
+          # our expired stamp is the password age past the last password change
+          expired_stamp = password_changed_at + self.class.password_age
+        else
+          # if no old passwords exist yet, we can check against
+          # when the user was created and use that timestamp
+          if self.respond_to?(:created_at)
+            expired_stamp = self.created_at + self.class.password_age            
+          end
+        end
+
+        # are we expired?
+        !!(Time.now > expired_stamp)
       end
 
     protected
