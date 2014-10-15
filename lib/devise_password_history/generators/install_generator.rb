@@ -32,6 +32,10 @@ module DevisePasswordHistory
       def copy_migrations
         migration_template "migrations/create_old_passwords.rb", "db/migrate/create_old_passwords.rb"
       end
+
+      def copy_locale
+        copy_file "../../../../config/locales/en.yml", "config/locales/devise_password_history.en.yml"
+      end
     end
   end
 end

@@ -34,7 +34,7 @@ module DevisePasswordHistory
 
       # flash message
       def expired_password_message
-        "Your password has expired, please choose a new one"
+        t("devise_password_history.expired_password_message")
       end
     end
   end
