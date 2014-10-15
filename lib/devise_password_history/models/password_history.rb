@@ -32,7 +32,9 @@ module Devise
             self.old_passwords.each do |old_pw|
               temp = self.class.new
               temp.encrypted_password = old_pw.encrypted_password
-              temp.password_salt = old_pw.password_salt
+              if temp.respond_to?(:password_salt)
+                temp.password_salt = old_pw.password_salt
+              end
 
               # return true if this password "passes" (authenticates)
               return true if temp.valid_password?(self.password)
@@ -96,7 +98,9 @@ module Devise
             # record the old password
             old_pw = self.old_passwords.new
             old_pw.encrypted_password = self.encrypted_password_change.first
-            old_pw.password_salt = self.password_salt_change.first if self.password_salt_change.present?
+            if self.respond_to?(:password_salt_change)
+              old_pw.password_salt = self.password_salt_change.first if self.password_salt_change.present?
+            end
             old_pw.save!
 
             # wipe out passwords beyond our desired count

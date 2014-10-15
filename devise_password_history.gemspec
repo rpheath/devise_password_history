@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
   gem.summary       = %q{Password history support for devise}
   gem.homepage      = "http://github.com/rpheath/devise_password_history"
 
-  gem.add_dependency("devise", ["~> 2.2.0"])
+  gem.add_dependency("devise", ["> 2.0.0"])
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
